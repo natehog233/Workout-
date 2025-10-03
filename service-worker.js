@@ -1,4 +1,4 @@
-const CACHE_NAME = 'liftoff-lite-v1';
+const CACHE_NAME = 'liftoff-lite-v2';
 const ASSETS = [
   './',
   './index.html',
