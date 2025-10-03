@@ -1,9 +1,7 @@
-const CACHE_NAME = 'liftoff-lite-v2';
+const CACHE_NAME = 'liftoff-lite-v3';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css',
-  './app.js', // not used, but kept in case of future split
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png'

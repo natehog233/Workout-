@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
   <meta name="theme-color" content="#111827"/>
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png">
@@ -11,7 +11,7 @@
     :root {
       --bg: #0b1220;
       --panel: #111827;
-      --muted: #6b7280;
+      --muted: #9aa0aa;
       --text: #e5e7eb;
       --accent: #60a5fa;
       --accent2: #34d399;
@@ -19,32 +19,32 @@
       --danger: #ef4444;
       --border: #1f2937;
       --input: #0b1220;
+      --shadow: 0 6px 24px rgba(0,0,0,.35);
     }
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    header { position: sticky; top: 0; background: var(--panel); padding: 12px 16px; border-bottom: 1px solid var(--border); z-index: 10; }
+    header { position: sticky; top: 0; background: var(--panel); padding: 14px 16px; border-bottom: 1px solid var(--border); z-index: 10; }
     header h1 { margin: 0; font-size: 18px; letter-spacing: 0.5px; }
     nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding: 8px; background: var(--panel); border-top: 1px solid var(--border); position: sticky; bottom: 0; }
-    nav button { padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border); background: #0f172a; color: var(--text); font-weight: 600; }
+    nav button { padding: 14px 10px; border-radius: 12px; border: 1px solid var(--border); background: #0f172a; color: var(--text); font-weight: 700; font-size: 16px; }
     nav button.active { border-color: var(--accent); outline: 2px solid color-mix(in srgb, var(--accent), transparent 60%); }
-    main { padding: 16px; padding-bottom: 96px; }
+    main { padding: 16px; padding-bottom: 112px; }
     section { display: none; }
     section.active { display: block; }
-    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: var(--shadow); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px; }
-    input, select { width: 100%; background: var(--input); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
+    input, select { width: 100%; background: var(--input); color: var(--text); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-size: 16px; }
     input[type="number"] { -moz-appearance: textfield; }
-    button, .btn { background: var(--accent); color: #07131f; font-weight: 700; border: none; border-radius: 10px; padding: 10px; cursor: pointer; }
+    button, .btn { background: var(--accent); color: #07131f; font-weight: 800; border: none; border-radius: 12px; padding: 14px; cursor: pointer; font-size: 16px; }
     .btn-secondary { background: #0f172a; color: var(--text); border: 1px solid var(--border); }
     .btn-danger { background: var(--danger); color: #fff; }
     .btn-warn { background: var(--warn); color: #1f2937; }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px dashed var(--border); }
     .tag { font-size: 11px; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--border); background: #0f172a; color: var(--muted); }
     .muted { color: var(--muted); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    details { border: 1px dashed var(--border); border-radius: 10px; padding: 8px 10px; }
-    summary { cursor: pointer; }
     .flex { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .space-between { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
     .center { text-align: center; }
@@ -52,11 +52,20 @@
     .spacer { height: 6px; }
     .hidden { display: none !important; }
     .link { color: var(--accent); text-decoration: underline; cursor: pointer; }
-    /* Mobile touch comfort */
-* { -webkit-tap-highlight-color: transparent; }
-button, .btn, input, select { padding: 14px; font-size: 16px; }
-nav button { padding: 14px 10px; }
 
+    /* Toasts */
+    #toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: 86px; z-index: 999; display:flex; gap:8px; background:#0f172a; border:1px solid var(--border); color:var(--text); padding:10px 12px; border-radius:12px; box-shadow: var(--shadow); opacity:0; pointer-events:none; transition: opacity .2s ease; }
+    #toast.show { opacity:1; pointer-events:auto; }
+    #toast button { padding:8px 10px; font-size:14px; }
+
+    /* Bottom sheet (Add exercise) */
+    #sheet { position: fixed; left:0; right:0; bottom:0; background:var(--panel); border-top-left-radius:18px; border-top-right-radius:18px; border:1px solid var(--border); box-shadow: var(--shadow); transform: translateY(110%); transition: transform .25s ease; z-index: 998; }
+    #sheet.show { transform: translateY(0); }
+    #sheet .grip { width: 40px; height: 4px; border-radius: 99px; background:#334155; margin: 8px auto; }
+    #sheet .content { padding: 12px; max-height: 60vh; overflow:auto; }
+    #sheet .row { grid-template-columns: 1fr; }
+    .chip-row { display:flex; gap:8px; flex-wrap:wrap; }
+    .chip-row .btn { padding:10px 12px; font-weight:700; }
   </style>
 </head>
 <body>
@@ -82,20 +91,26 @@ nav button { padding: 14px 10px; }
         <h3>Quick Add Set</h3>
         <div class="row3">
           <select id="qaExercise"></select>
-          <input type="number" id="qaWeight" placeholder="Weight">
-          <input type="number" id="qaReps" placeholder="Reps">
+          <input type="number" inputmode="decimal" id="qaWeight" placeholder="Weight">
+          <input type="number" inputmode="decimal" id="qaReps" placeholder="Reps">
         </div>
         <div class="spacer"></div>
-        <div class="row">
-          <input type="number" id="qaRPE" placeholder="RPE (opt)">
+        <div class="row3">
+          <input type="number" inputmode="decimal" id="qaRPE" placeholder="RPE (opt)">
           <button id="qaAdd">Add</button>
+          <button id="qaAddRest" class="btn-warn">Add + Rest</button>
+        </div>
+        <div class="chip-row" style="margin-top:8px;">
+          <button class="btn-secondary" data-restchip="60">60s</button>
+          <button class="btn-secondary" data-restchip="90">90s</button>
+          <button class="btn-secondary" data-restchip="120">120s</button>
         </div>
         <div id="qaMsg" class="tiny muted"></div>
       </div>
       <div class="panel">
         <h3>Rest Timer</h3>
         <div class="flex">
-          <input type="number" id="restSec" value="90">
+          <input type="number" inputmode="decimal" id="restSec" value="90">
           <button id="restStart">Start</button>
           <span class="mono" id="restDisplay">00:00</span>
         </div>
@@ -145,8 +160,8 @@ nav button { padding: 14px 10px; }
           <select id="rtExercise"></select>
         </div>
         <div class="row3">
-          <input type="number" id="rtSets" placeholder="Sets" value="3">
-          <input type="number" id="rtReps" placeholder="Reps" value="8">
+          <input type="number" inputmode="decimal" id="rtSets" placeholder="Sets" value="3">
+          <input type="number" inputmode="decimal" id="rtReps" placeholder="Reps" value="8">
           <button id="rtAddItem">Add to routine</button>
         </div>
         <div class="spacer"></div>
@@ -189,376 +204,494 @@ nav button { padding: 14px 10px; }
     <button data-tab="history">History</button>
   </nav>
 
-<script>
-// --- State management (localStorage) ---
-const KEY='ll_state_v1';
-const emptyState = () => ({
-  exercises: [
-    {id: 'ex-squat', name: 'Barbell Back Squat', group: 'Legs'},
-    {id: 'ex-bench', name: 'Barbell Bench Press', group: 'Chest'},
-    {id: 'ex-dead', name: 'Conventional Deadlift', group: 'Back'},
-  ],
-  routines: [],
-  workouts: [],
-  draft: null
-});
-function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || emptyState(); } catch(e){ return emptyState(); } }
-function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
-let state = load();
+  <!-- Toast -->
+  <div id="toast"><span id="toastMsg"></span><button id="toastUndo" class="btn-secondary hidden">Undo</button></div>
 
-// --- Helpers ---
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => [...document.querySelectorAll(sel)];
-const uid = (p='id') => p+'-'+Math.random().toString(36).slice(2,9);
-const todayStr = () => new Date().toISOString().slice(0,10);
-const epley1RM = (w, r) => r ? (w * (1 + r/30)) : w;
-const fmtKgLb = (w) => w && !isNaN(w) ? Number(w).toFixed(1) : '-';
-
-function renderSelect(el, items, map=(x=>[x.id, x.name])){
-  el.innerHTML = items.map(x=>{
-    const [v,l]=map(x); return `<option value="${v}">${l}</option>`;
-  }).join('');
-}
-
-function refreshHome(){
-  // today summary
-  const ts = state.workouts.filter(w=>w.date.startsWith(todayStr()));
-  const el = $('#todaySummary');
-  if(ts.length === 0){ el.textContent = 'No workout logged yet.'; }
-  else{
-    const s = ts[ts.length-1];
-    const totalSets = s.items.reduce((a,it)=>a+it.sets.length,0);
-    el.innerHTML = `Logged <b>${totalSets}</b> sets across <b>${s.items.length}</b> exercises.`;
-  }
-  // quick add select & resume
-  renderSelect($('#qaExercise'), state.exercises);
-  $('#resumeWorkoutBtn').classList.toggle('hidden', !state.draft);
-}
-
-function refreshLibrary(){
-  renderSelect($('#rtExercise'), state.exercises);
-  renderSelect($('#qaExercise'), state.exercises);
-  const list = $('#exList');
-  list.innerHTML = state.exercises.map(ex=>`
-    <div class="space-between" style="padding:8px 0; border-bottom:1px dashed var(--border);">
-      <div>
-        <div><b>${ex.name}</b></div>
-        <div class="tiny muted">${ex.group||'-'}</div>
+  <!-- Bottom sheet: add exercise -->
+  <div id="sheet" aria-hidden="true">
+    <div class="grip"></div>
+    <div class="content">
+      <div class="space-between">
+        <h3 style="margin:0">Add exercises</h3>
+        <button id="sheetClose" class="btn-secondary">Close</button>
       </div>
-      <button class="btn-secondary" data-del-ex="${ex.id}">Delete</button>
-    </div>`).join('');
-}
-
-function refreshRoutines(){
-  renderSelect($('#rtExercise'), state.exercises);
-  const list = $('#rtList');
-  list.innerHTML = state.routines.map(rt=>`
-    <details>
-      <summary><b>${rt.name}</b> <span class="tag">${rt.items.length} items</span></summary>
-      ${rt.items.map(it=>{
-        const ex = state.exercises.find(e=>e.id===it.exerciseId);
-        return `<div class="tiny muted">${ex?ex.name:'?'} — ${it.sets}x${it.reps}</div>`;
-      }).join('')}
       <div class="spacer"></div>
-      <button class="btn-secondary" data-start-rt="${rt.id}">Start</button>
-      <button class="btn-danger" data-del-rt="${rt.id}">Delete</button>
-    </details>`).join('');
-}
+      <input id="sheetSearch" placeholder="Search exercises">
+      <div class="spacer"></div>
+      <div id="sheetList"></div>
+      <div class="spacer"></div>
+      <button id="sheetAdd" class="btn">Add selected</button>
+    </div>
+  </div>
 
-function startWorkoutFromRoutine(rtId){
-  const rt = state.routines.find(r=>r.id===rtId);
-  if(!rt) return;
-  state.draft = {
-    id: uid('wo'),
-    date: new Date().toISOString(),
-    note: '',
-    items: rt.items.map(it=>({ exerciseId: it.exerciseId, sets: [] }))
-  };
-  save(state);
-  openTab('log'); renderLog();
-}
+  <script>
+  // --- State management (localStorage) ---
+  const KEY='ll_state_v1';
+  const emptyState = () => ({
+    exercises: [
+      {id: 'ex-squat', name: 'Barbell Back Squat', group: 'Legs'},
+      {id: 'ex-bench', name: 'Barbell Bench Press', group: 'Chest'},
+      {id: 'ex-dead', name: 'Conventional Deadlift', group: 'Back'},
+    ],
+    routines: [],
+    workouts: [],
+    draft: null,
+    lastInputs: {} // per-exercise sticky inputs { [id]: {weight, reps, rpe} }
+  });
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || emptyState(); } catch(e){ return emptyState(); } }
+  function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
+  let state = load();
 
-function renderLog(){
-  const draft = state.draft;
-  if(!draft){
-    $('#logItems').innerHTML = '<div class="muted tiny">No active workout. Start one from Home or Routines.</div>';
-    return;
+  // --- Helpers ---
+  const $ = (sel) => document.querySelector(sel);
+  const $$ = (sel) => [...document.querySelectorAll(sel)];
+  const uid = (p='id') => p+'-'+Math.random().toString(36).slice(2,9);
+  const todayStr = () => new Date().toISOString().slice(0,10);
+  const epley1RM = (w, r) => r ? (w * (1 + r/30)) : w;
+  const fmtKgLb = (w) => w && !isNaN(w) ? Number(w).toFixed(1) : '-';
+
+  function toast(msg, undoFn=null){
+    $('#toastMsg').textContent = msg;
+    const undoBtn = $('#toastUndo');
+    if(undoFn){ undoBtn.classList.remove('hidden'); undoBtn.onclick = () => { undoBtn.classList.add('hidden'); hide(); undoFn(); }; }
+    else { undoBtn.classList.add('hidden'); undoBtn.onclick = null; }
+    const el = $('#toast');
+    el.classList.add('show');
+    let t = setTimeout(()=>{ hide(); }, 3000);
+    function hide(){ el.classList.remove('show'); clearTimeout(t); }
   }
-  renderSelect($('#logRoutine'), [{id: '', name: '— Select routine to append —'}, ...state.routines]);
-  $('#logNote').value = draft.note || '';
-  const html = draft.items.map((it, idx)=>{
-    const ex = state.exercises.find(e=>e.id===it.exerciseId);
-    const sets = it.sets.map((s,i)=>`
-      <div class="row3" style="margin:6px 0;">
-        <div class="tiny muted">Set ${i+1}</div>
-        <div class="tiny">${fmtKgLb(s.weight)} × ${s.reps}  <span class="muted">RPE ${s.rpe ?? '-'}</span></div>
-        <button class="btn-secondary" data-del-set="${idx}|${i}">Delete</button>
+
+  // --- Keep screen awake during workout ---
+  let wakeLock = null;
+  async function requestWakeLock(){
+    try {
+      if('wakeLock' in navigator){ wakeLock = await navigator.wakeLock.request('screen'); }
+    } catch(e){ /* ignore */ }
+  }
+  function releaseWakeLock(){ try{ wakeLock && wakeLock.release(); wakeLock = null; } catch(e){} }
+
+  // --- Rendering ---
+  function renderSelect(el, items, map=(x=>[x.id, x.name])){
+    el.innerHTML = items.map(x=>{ const [v,l]=map(x); return `<option value="${v}">${l}</option>`; }).join('');
+  }
+
+  function refreshHome(){
+    const ts = state.workouts.filter(w=>w.date.startsWith(todayStr()));
+    const el = $('#todaySummary');
+    if(ts.length === 0){ el.textContent = 'No workout logged yet.'; }
+    else{
+      const s = ts[ts.length-1];
+      const totalSets = s.items.reduce((a,it)=>a+it.sets.length,0);
+      el.innerHTML = `Logged <b>${totalSets}</b> sets across <b>${s.items.length}</b> exercises.`;
+    }
+    renderSelect($('#qaExercise'), state.exercises);
+    $('#resumeWorkoutBtn').classList.toggle('hidden', !state.draft);
+  }
+
+  function refreshLibrary(){
+    renderSelect($('#rtExercise'), state.exercises);
+    renderSelect($('#qaExercise'), state.exercises);
+    const list = $('#exList');
+    list.innerHTML = state.exercises.map(ex=>`
+      <div class="space-between" style="padding:10px 0; border-bottom:1px dashed var(--border);">
+        <div>
+          <div><b>${ex.name}</b></div>
+          <div class="tiny muted">${ex.group||'-'}</div>
+        </div>
+        <button class="btn-secondary" data-del-ex="${ex.id}">Delete</button>
       </div>`).join('');
-    return `
-      <div class="panel">
-        <div class="space-between">
-          <div><b>${ex?ex.name:'? exercise'}</b></div>
-          <button class="btn-secondary" data-del-item="${idx}">Remove</button>
-        </div>
-        <div class="row3" style="margin-top:6px;">
-          <input type="number" placeholder="Weight" data-w="${idx}">
-          <input type="number" placeholder="Reps" data-r="${idx}">
-          <input type="number" placeholder="RPE (opt)" data-e="${idx}">
-        </div>
-        <div class="spacer"></div>
-        <button data-add-set="${idx}">Add set</button>
-        <div class="spacer"></div>
-        ${sets || '<div class="tiny muted">No sets yet.</div>'}
-      </div>`;
-  }).join('');
-  $('#logItems').innerHTML = html;
-}
-
-function addExerciseToDraft(exId){
-  if(!state.draft){
-    state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: [] };
   }
-  state.draft.items.push({ exerciseId: exId, sets: [] });
-  save(state); renderLog();
-}
 
-function finishWorkout(){
-  if(!state.draft) return;
-  state.draft.note = $('#logNote').value || '';
-  // Remove empty items
-  state.draft.items = state.draft.items.filter(it=>it.sets.length>0);
-  if(state.draft.items.length===0){ alert('No sets logged.'); return; }
-  state.workouts.push(state.draft);
-  state.draft = null;
-  save(state);
-  alert('Workout saved!');
-  openTab('home'); refreshHome();
-}
+  function refreshRoutines(){
+    renderSelect($('#rtExercise'), state.exercises);
+    const list = $('#rtList');
+    list.innerHTML = state.routines.map(rt=>`
+      <details>
+        <summary><b>${rt.name}</b> <span class="tag">${rt.items.length} items</span></summary>
+        ${rt.items.map(it=>{
+          const ex = state.exercises.find(e=>e.id===it.exerciseId);
+          return `<div class="tiny muted">${ex?ex.name:'?'} — ${it.sets}x${it.reps}</div>`;
+        }).join('')}
+        <div class="spacer"></div>
+        <button class="btn-secondary" data-start-rt="${rt.id}">Start</button>
+        <button class="btn-danger" data-del-rt="${rt.id}">Delete</button>
+      </details>`).join('');
+  }
 
-function quickAddSet(){
-  const exId = $('#qaExercise').value;
-  const weight = parseFloat($('#qaWeight').value);
-  const reps = parseInt($('#qaReps').value,10);
-  const rpe = parseFloat($('#qaRPE').value);
-  if(!exId || isNaN(weight) || isNaN(reps)){ $('#qaMsg').textContent='Pick an exercise and enter weight & reps.'; return; }
-  if(!state.draft){ state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: []}; }
-  // find or add item
-  let it = state.draft.items.find(x=>x.exerciseId===exId);
-  if(!it){ it = { exerciseId: exId, sets: [] }; state.draft.items.push(it); }
-  it.sets.push({ weight, reps, rpe: isNaN(rpe)?null:rpe, t: Date.now() });
-  save(state);
-  $('#qaMsg').textContent='Added to current workout.';
-  $('#qaWeight').value=''; $('#qaReps').value=''; $('#qaRPE').value='';
-  refreshHome();
-}
+  function startWorkoutFromRoutine(rtId){
+    const rt = state.routines.find(r=>r.id===rtId);
+    if(!rt) return;
+    state.draft = {
+      id: uid('wo'),
+      date: new Date().toISOString(),
+      note: '',
+      items: rt.items.map(it=>({ exerciseId: it.exerciseId, sets: [] }))
+    };
+    save(state);
+    openTab('log'); renderLog();
+  }
 
-function showHistoryFor(exId){
-  const el = $('#histArea');
-  const workouts = state.workouts
-    .map(w=>({ ...w, items: w.items.filter(it=>it.exerciseId===exId)}))
-    .filter(w=>w.items.length>0);
-  if(workouts.length===0){ el.innerHTML = '<div class="tiny muted">No history yet for this exercise.</div>'; return; }
-  // Compute PRs
-  let best = { oneRM: 0, weight: 0, reps: 0 };
-  let table = '<div class="tiny mono">Date | Weight × Reps | est. 1RM</div>';
-  for(const w of workouts){
-    for(const it of w.items){
-      for(const s of it.sets){
-        const one = epley1RM(Number(s.weight||0), Number(s.reps||0));
-        table += `<div class="tiny mono">${w.date.slice(0,10)} | ${fmtKgLb(s.weight)} × ${s.reps} | ${one.toFixed(1)}</div>`;
-        if(one > best.oneRM){ best = { oneRM: one, weight: s.weight, reps: s.reps }; }
+  function lastInputFor(exId){ return state.lastInputs[exId] || {weight:'', reps:'', rpe:''}; }
+  function setLastInput(exId, obj){ state.lastInputs[exId] = Object.assign(lastInputFor(exId), obj); save(state); }
+
+  function renderLog(){
+    const draft = state.draft;
+    if(!draft){
+      $('#logItems').innerHTML = '<div class="muted tiny">No active workout. Start one from Home or Routines.</div>';
+      return;
+    }
+    renderSelect($('#logRoutine'), [{id: '', name: '— Select routine to append —'}, ...state.routines]);
+    $('#logNote').value = draft.note || '';
+    const html = draft.items.map((it, idx)=>{
+      const ex = state.exercises.find(e=>e.id===it.exerciseId);
+      const sticky = lastInputFor(it.exerciseId);
+      const sets = it.sets.map((s,i)=>`
+        <div class="row3" style="margin:6px 0;">
+          <div class="tiny muted">Set ${i+1}</div>
+          <div class="tiny">${fmtKgLb(s.weight)} × ${s.reps}  <span class="muted">RPE ${s.rpe ?? '-'}</span></div>
+          <div class="flex" style="justify-content:flex-end">
+            <button class="btn-secondary" data-dup-set="${idx}|${i}">Same as</button>
+            <button class="btn-secondary" data-del-set="${idx}|${i}">Delete</button>
+          </div>
+        </div>`).join('');
+      return `
+        <div class="panel">
+          <div class="space-between">
+            <div><b>${ex?ex.name:'? exercise'}</b></div>
+            <button class="btn-secondary" data-del-item="${idx}">Remove</button>
+          </div>
+          <div class="row3" style="margin-top:6px;">
+            <input type="number" inputmode="decimal" placeholder="Weight" value="${sticky.weight??''}" data-w="${idx}" data-ex="${it.exerciseId}">
+            <input type="number" inputmode="decimal" placeholder="Reps" value="${sticky.reps??''}" data-r="${idx}" data-ex="${it.exerciseId}">
+            <input type="number" inputmode="decimal" placeholder="RPE (opt)" value="${sticky.rpe??''}" data-e="${idx}" data-ex="${it.exerciseId}">
+          </div>
+          <div class="spacer"></div>
+          <div class="row3">
+            <button data-add-set="${idx}">Add set</button>
+            <button class="btn-warn" data-add-set-rest="${idx}">Add + Rest</button>
+            <button class="btn-secondary" data-same="${idx}">Same as last</button>
+          </div>
+          <div class="spacer"></div>
+          ${sets || '<div class="tiny muted">No sets yet.</div>'}
+        </div>`;
+    }).join('');
+    $('#logItems').innerHTML = html;
+  }
+
+  function addExerciseToDraft(exIds){
+    if(!state.draft){
+      state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: [] };
+    }
+    exIds.forEach(exId => state.draft.items.push({ exerciseId: exId, sets: [] }));
+    save(state); renderLog();
+  }
+
+  function finishWorkout(){
+    if(!state.draft) return;
+    state.draft.note = $('#logNote').value || '';
+    state.draft.items = state.draft.items.filter(it=>it.sets.length>0);
+    if(state.draft.items.length===0){ toast('No sets logged.'); return; }
+    state.workouts.push(state.draft);
+    state.draft = null;
+    save(state);
+    toast('Workout saved ✅');
+    openTab('home'); refreshHome(); releaseWakeLock();
+  }
+
+  function addSetAt(idx, startRest=false){
+    const wEl = document.querySelector(`[data-w="${idx}"]`);
+    const rEl = document.querySelector(`[data-r="${idx}"]`);
+    const eEl = document.querySelector(`[data-e="${idx}"]`);
+    const w = parseFloat(wEl.value);
+    const r = parseInt(rEl.value,10);
+    const rp = parseFloat(eEl.value);
+    if(isNaN(w)||isNaN(r)){ toast('Enter weight & reps'); return; }
+    state.draft.items[idx].sets.push({weight:w, reps:r, rpe:isNaN(rp)?null:rp, t: Date.now()});
+    const exId = wEl.getAttribute('data-ex');
+    setLastInput(exId, {weight:wEl.value, rpe:eEl.value, reps:''});
+    rEl.value='';
+    save(state); renderLog();
+    toast('Set added');
+    if(startRest){ startRestTimer(); }
+  }
+
+  // History
+  function showHistoryFor(exId){
+    const el = $('#histArea');
+    const workouts = state.workouts
+      .map(w=>({ ...w, items: w.items.filter(it=>it.exerciseId===exId)}))
+      .filter(w=>w.items.length>0);
+    if(workouts.length===0){ el.innerHTML = '<div class="tiny muted">No history yet for this exercise.</div>'; return; }
+    let best = { oneRM: 0, weight: 0, reps: 0 };
+    let table = '<div class="tiny mono">Date | Weight × Reps | est. 1RM</div>';
+    for(const w of workouts){
+      for(const it of w.items){
+        for(const s of it.sets){
+          const one = epley1RM(Number(s.weight||0), Number(s.reps||0));
+          table += `<div class="tiny mono">${w.date.slice(0,10)} | ${fmtKgLb(s.weight)} × ${s.reps} | ${one.toFixed(1)}</div>`;
+          if(one > best.oneRM){ best = { oneRM: one, weight: s.weight, reps: s.reps }; }
+        }
       }
     }
+    const ex = state.exercises.find(e=>e.id===exId);
+    el.innerHTML = `
+      <div class="panel">
+        <div><b>Personal Record (est. 1RM)</b></div>
+        <div class="tiny">${ex?ex.name:''}</div>
+        <div class="spacer"></div>
+        <div><span class="tag">${best.oneRM.toFixed(1)} est. 1RM</span> — best set: ${fmtKgLb(best.weight)} × ${best.reps}</div>
+      </div>
+      <div class="panel">
+        <b>All sets</b>
+        <div class="spacer"></div>
+        ${table}
+      </div>`;
   }
-  const ex = state.exercises.find(e=>e.id===exId);
-  el.innerHTML = `
-    <div class="panel">
-      <div><b>Personal Record (est. 1RM)</b></div>
-      <div class="tiny">${ex?ex.name:''}</div>
-      <div class="spacer"></div>
-      <div><span class="tag">${best.oneRM.toFixed(1)} est. 1RM</span> — best set: ${fmtKgLb(best.weight)} × ${best.reps}</div>
-    </div>
-    <div class="panel">
-      <b>All sets</b>
-      <div class="spacer"></div>
-      ${table}
-    </div>`;
-}
 
-function exportJSON(){
-  const data = JSON.stringify(state, null, 2);
-  const blob = new Blob([data], {type: 'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'liftoff-lite-backup.json';
-  a.click();
-  setTimeout(()=>URL.revokeObjectURL(url), 2500);
-}
+  // Export/Import
+  function exportJSON(){
+    const data = JSON.stringify(state, null, 2);
+    const blob = new Blob([data], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'liftoff-lite-backup.json';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url), 2500);
+  }
 
-function importJSON(file){
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    try{
-      const obj = JSON.parse(e.target.result);
-      if(!obj.exercises || !obj.workouts){ alert('Invalid backup file.'); return; }
-      state = obj; save(state);
-      refreshAll();
-      alert('Import complete.');
-    }catch(err){ alert('Import failed: ' + err.message); }
-  };
-  reader.readAsText(file);
-}
+  function importJSON(file){
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try{
+        const obj = JSON.parse(e.target.result);
+        if(!obj.exercises || !obj.workouts){ toast('Invalid backup'); return; }
+        state = obj; save(state);
+        refreshAll();
+        toast('Import complete');
+      }catch(err){ toast('Import failed: ' + err.message); }
+    };
+    reader.readAsText(file);
+  }
 
-function openTab(id){
-  $$('section').forEach(s=>s.classList.remove('active'));
-  $(`#${id}`).classList.add('active');
-  $$('nav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
-}
+  function openTab(id){
+    $$('section').forEach(s=>s.classList.remove('active'));
+    $(`#${id}`).classList.add('active');
+    $$('nav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
+  }
 
-function refreshAll(){
-  refreshHome();
-  refreshLibrary();
-  refreshRoutines();
-  renderLog();
-  renderSelect($('#histExercise'), state.exercises);
-}
+  function refreshAll(){
+    refreshHome();
+    refreshLibrary();
+    refreshRoutines();
+    renderLog();
+    renderSelect($('#histExercise'), state.exercises);
+  }
 
-// --- Event wiring ---
-window.addEventListener('DOMContentLoaded', () => {
-  // Tabs
-  $$('nav button').forEach(b=>b.addEventListener('click', ()=>openTab(b.dataset.tab)));
-  // Home
-  $('#startWorkoutBtn').addEventListener('click', ()=>{
-    state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: []};
-    save(state); openTab('log'); renderLog();
-  });
-  $('#resumeWorkoutBtn').addEventListener('click', ()=>{ openTab('log'); renderLog(); });
-  $('#qaAdd').addEventListener('click', quickAddSet);
-  // Rest timer
+  // --- Rest timer ---
   let restTimer=null, restRemain=0;
   function renderRest(){ const m = String(Math.floor(restRemain/60)).padStart(2,'0'); const s=String(restRemain%60).padStart(2,'0'); $('#restDisplay').textContent = m+':'+s; }
-  $('#restStart').addEventListener('click', ()=>{
+  function startRestTimer(){
     restRemain = parseInt($('#restSec').value,10)||90;
     if(restTimer) clearInterval(restTimer);
     renderRest();
     restTimer = setInterval(()=>{
       restRemain--; renderRest();
-      if(restRemain<=0){ clearInterval(restTimer); restTimer=null; if('vibrate' in navigator) navigator.vibrate([200,100,200]); alert('Rest done!'); }
+      if(restRemain<=0){
+        clearInterval(restTimer); restTimer=null;
+        if('vibrate' in navigator) navigator.vibrate([200,100,200]);
+        toast('Rest done ⏱️');
+      }
     },1000);
-  });
+  }
 
-  // Log
-  $('#logAddExercise').addEventListener('click', ()=>{
-    const term = prompt('Type to search exercise name:');
-    if(!term) return;
-    const s = term.trim().toLowerCase();
-    if(!s) return;
-    const match = state.exercises.find(e=>e.name.toLowerCase().includes(s));
-    if(match){ addExerciseToDraft(match.id); }
-    else{ alert('No match. Add it in Library first.'); }
-  });
-  $('#logSave').addEventListener('click', finishWorkout);
-  $('#logRoutine').addEventListener('change', (e)=>{
-    const id = e.target.value;
-    if(!id) return;
-    const rt = state.routines.find(r=>r.id===id);
-    if(!state.draft){ state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: []}; }
-    rt.items.forEach(it=>state.draft.items.push({ exerciseId: it.exerciseId, sets: [] }));
-    save(state); renderLog(); e.target.value='';
-  });
-  $('#logItems').addEventListener('click', (e)=>{
-    const add = e.target.getAttribute('data-add-set');
-    const delItem = e.target.getAttribute('data-del-item');
-    const delSet = e.target.getAttribute('data-del-set');
-    if(add!==null){
-      const idx = Number(add);
-      const w = parseFloat(document.querySelector(`[data-w="${idx}"]`).value);
-      const r = parseInt(document.querySelector(`[data-r="${idx}"]`).value,10);
-      const rp = parseFloat(document.querySelector(`[data-e="${idx}"]`).value);
-      if(isNaN(w)||isNaN(r)){ alert('Enter weight and reps.'); return; }
-      state.draft.items[idx].sets.push({weight:w, reps:r, rpe:isNaN(rp)?null:rp, t: Date.now()});
-      save(state); renderLog();
+  // --- Bottom sheet (add exercises) ---
+  function openSheet(){ $('#sheet').classList.add('show'); $('#sheet').setAttribute('aria-hidden','false'); buildSheetList(); $('#sheetSearch').focus(); }
+  function closeSheet(){ $('#sheet').classList.remove('show'); $('#sheet').setAttribute('aria-hidden','true'); }
+  function buildSheetList(filter=''){
+    const list = $('#sheetList');
+    const q = filter.trim().toLowerCase();
+    const items = state.exercises.filter(ex => !q || ex.name.toLowerCase().includes(q));
+    list.innerHTML = items.map(ex=>`
+      <label class="flex" style="justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--border)">
+        <div>
+          <div><b>${ex.name}</b></div>
+          <div class="tiny muted">${ex.group||'-'}</div>
+        </div>
+        <input type="checkbox" value="${ex.id}" style="width:22px; height:22px;">
+      </label>
+    `).join('');
+  }
+  function selectedSheetIds(){ return [...$('#sheetList').querySelectorAll('input[type="checkbox"]:checked')].map(c=>c.value); }
+
+  // --- Event wiring ---
+  window.addEventListener('DOMContentLoaded', () => {
+    // Tabs
+    $$('nav button').forEach(b=>b.addEventListener('click', ()=>openTab(b.dataset.tab)));
+
+    // Keep awake when a draft exists
+    if(state.draft) requestWakeLock();
+    document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'visible' && state.draft) requestWakeLock(); });
+
+    // Home
+    $('#startWorkoutBtn').addEventListener('click', ()=>{ state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: []}; save(state); requestWakeLock(); openTab('log'); renderLog(); });
+    $('#resumeWorkoutBtn').addEventListener('click', ()=>{ requestWakeLock(); openTab('log'); renderLog(); });
+    $('#qaAdd').addEventListener('click', ()=>{ quickAddSet(false); });
+    $('#qaAddRest').addEventListener('click', ()=>{ quickAddSet(true); });
+    $$('#home [data-restchip]').forEach(b=>b.addEventListener('click', ()=>{ $('#restSec').value = b.getAttribute('data-restchip'); }));
+    $('#restStart').addEventListener('click', startRestTimer);
+
+    // Quick add set
+    function quickAddSet(startRest){
+      const exId = $('#qaExercise').value;
+      const weight = parseFloat($('#qaWeight').value);
+      const reps = parseInt($('#qaReps').value,10);
+      const rpe = parseFloat($('#qaRPE').value);
+      if(!exId || isNaN(weight) || isNaN(reps)){ toast('Pick an exercise + weight + reps'); return; }
+      if(!state.draft){ state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: []}; }
+      let it = state.draft.items.find(x=>x.exerciseId===exId);
+      if(!it){ it = { exerciseId: exId, sets: [] }; state.draft.items.push(it); }
+      it.sets.push({ weight, reps, rpe: isNaN(rpe)?null:rpe, t: Date.now() });
+      setLastInput(exId, {weight: String(weight), rpe: isNaN(rpe)?'':String(rpe), reps:''});
+      save(state);
+      refreshHome();
+      toast('Set added');
+      if(startRest) startRestTimer();
     }
-    if(delItem!==null){
-      state.draft.items.splice(Number(delItem),1);
-      save(state); renderLog();
-    }
-    if(delSet!==null){
-      const [i,j] = delSet.split('|').map(x=>Number(x));
-      state.draft.items[i].sets.splice(j,1);
-      save(state); renderLog();
-    }
-  });
 
-  // Library
-  $('#exAdd').addEventListener('click', ()=>{
-    const name = $('#exName').value.trim();
-    if(!name){ alert('Enter a name'); return; }
-    const group = $('#exGroup').value.trim();
-    state.exercises.push({ id: uid('ex'), name, group });
-    save(state); $('#exName').value=''; $('#exGroup').value=''; refreshLibrary(); refreshAll();
-  });
-  $('#exList').addEventListener('click', (e)=>{
-    const id = e.target.getAttribute('data-del-ex'); if(!id) return;
-    if(!confirm('Delete exercise? This does not delete history.')) return;
-    state.exercises = state.exercises.filter(x=>x.id!==id);
-    // Clean routines
-    state.routines.forEach(r=>r.items = r.items.filter(i=>i.exerciseId!==id));
-    save(state); refreshAll();
-  });
+    // Log
+    $('#logAddExercise').addEventListener('click', openSheet);
+    $('#sheetClose').addEventListener('click', closeSheet);
+    $('#sheetSearch').addEventListener('input', (e)=> buildSheetList(e.target.value));
+    $('#sheetAdd').addEventListener('click', ()=>{ const ids = selectedSheetIds(); if(ids.length){ addExerciseToDraft(ids); } closeSheet(); });
 
-  // Routines
-  const tmpItems = [];
-  $('#rtAddItem').addEventListener('click', ()=>{
-    const exId = $('#rtExercise').value; const sets = parseInt($('#rtSets').value,10)||3; const reps=parseInt($('#rtReps').value,10)||8;
-    if(!exId){ alert('Pick an exercise.'); return; }
-    tmpItems.push({ exerciseId: exId, sets, reps });
-    alert('Added to staged routine items. Press Save routine to finish.');
-  });
-  $('#rtSave').addEventListener('click', ()=>{
-    const name = $('#rtName').value.trim();
-    if(!name || tmpItems.length===0){ alert('Name and at least one item required.'); return; }
-    state.routines.push({ id: uid('rt'), name, items: tmpItems.splice(0) });
-    save(state); $('#rtName').value=''; refreshRoutines();
-  });
-  $('#rtList').addEventListener('click', (e)=>{
-    const start = e.target.getAttribute('data-start-rt');
-    const del = e.target.getAttribute('data-del-rt');
-    if(start){ startWorkoutFromRoutine(start); }
-    if(del){ if(confirm('Delete routine?')){ state.routines = state.routines.filter(r=>r.id!==del); save(state); refreshRoutines(); } }
-  });
-
-  // History
-  renderSelect($('#histExercise'), state.exercises);
-  $('#histExercise').addEventListener('change', (e)=>showHistoryFor(e.target.value));
-  $('#histPRs').addEventListener('click', ()=>{
-    const exId = $('#histExercise').value;
-    if(exId) showHistoryFor(exId);
-  });
-
-  // Backup
-  $('#exportBtn').addEventListener('click', exportJSON);
-  $('#importFile').addEventListener('change', (e)=> e.target.files[0] && importJSON(e.target.files[0]));
-  $('#resetBtn').addEventListener('click', ()=>{
-    if(confirm('This will erase all local data. Proceed?')){ state = emptyState(); save(state); refreshAll(); alert('Reset complete.'); }
-  });
-
-  // Initial
-  refreshAll();
-});
-
-// --- PWA service worker registration ---
-if('serviceWorker' in navigator){
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').then(()=>{
-      document.getElementById('status').textContent = 'offline-ready';
-    }).catch(()=>{
-      document.getElementById('status').textContent = 'not installed';
+    $('#logSave').addEventListener('click', finishWorkout);
+    $('#logRoutine').addEventListener('change', (e)=>{
+      const id = e.target.value;
+      if(!id) return;
+      const rt = state.routines.find(r=>r.id===id);
+      if(!state.draft){ state.draft = { id: uid('wo'), date: new Date().toISOString(), note:'', items: []}; }
+      rt.items.forEach(it=>state.draft.items.push({ exerciseId: it.exerciseId, sets: [] }));
+      save(state); renderLog(); e.target.value='';
     });
-  });
-}
-</script>
+    $('#logItems').addEventListener('click', (e)=>{
+      const add = e.target.getAttribute('data-add-set');
+      const addRest = e.target.getAttribute('data-add-set-rest');
+      const delItem = e.target.getAttribute('data-del-item');
+      const delSet = e.target.getAttribute('data-del-set');
+      const dupSet = e.target.getAttribute('data-dup-set');
+      const same = e.target.getAttribute('data-same');
 
+      if(add!==null){ addSetAt(Number(add), false); }
+      if(addRest!==null){ addSetAt(Number(addRest), true); }
+      if(same!==null){
+        const idx = Number(same);
+        const it = state.draft.items[idx];
+        if(it.sets.length){
+          const last = it.sets[it.sets.length-1];
+          const wEl = document.querySelector(`[data-w="${idx}"]`);
+          const rEl = document.querySelector(`[data-r="${idx}"]`);
+          const eEl = document.querySelector(`[data-e="${idx}"]`);
+          wEl.value = last.weight; rEl.value = last.reps; eEl.value = last.rpe ?? '';
+          setLastInput(it.exerciseId, {weight:String(last.weight), reps:String(last.reps), rpe: last.rpe??''});
+        }
+      }
+      if(dupSet!==null){
+        const [i,j] = dupSet.split('|').map(Number);
+        const src = state.draft.items[i].sets[j];
+        state.draft.items[i].sets.push({...src, t: Date.now()});
+        save(state); renderLog(); toast('Set duplicated');
+      }
+      if(delItem!==null){
+        const snapshot = JSON.stringify(state.draft);
+        const idx = Number(delItem);
+        state.draft.items.splice(idx,1);
+        save(state); renderLog();
+        toast('Exercise removed', ()=>{ state.draft = JSON.parse(snapshot); save(state); renderLog(); });
+      }
+      if(delSet!==null){
+        const [i,j] = delSet.split('|').map(x=>Number(x));
+        const snapshot = JSON.stringify(state.draft.items[i].sets);
+        state.draft.items[i].sets.splice(j,1);
+        save(state); renderLog();
+        toast('Set deleted', ()=>{ state.draft.items[i].sets = JSON.parse(snapshot); save(state); renderLog(); });
+      }
+    });
+
+    // Library
+    $('#exAdd').addEventListener('click', ()=>{
+      const name = $('#exName').value.trim();
+      if(!name){ toast('Enter a name'); return; }
+      const group = $('#exGroup').value.trim();
+      state.exercises.push({ id: uid('ex'), name, group });
+      save(state); $('#exName').value=''; $('#exGroup').value=''; refreshLibrary(); refreshAll();
+      toast('Exercise added');
+    });
+    $('#exList').addEventListener('click', (e)=>{
+      const id = e.target.getAttribute('data-del-ex'); if(!id) return;
+      const snapshot = JSON.stringify(state);
+      state.exercises = state.exercises.filter(x=>x.id!==id);
+      state.routines.forEach(r=>r.items = r.items.filter(i=>i.exerciseId!==id));
+      save(state); refreshAll();
+      toast('Exercise removed', ()=>{ state = JSON.parse(snapshot); save(state); refreshAll(); });
+    });
+
+    // Routines
+    const tmpItems = [];
+    $('#rtAddItem').addEventListener('click', ()=>{
+      const exId = $('#rtExercise').value; const sets = parseInt($('#rtSets').value,10)||3; const reps=parseInt($('#rtReps').value,10)||8;
+      if(!exId){ toast('Pick an exercise'); return; }
+      tmpItems.push({ exerciseId: exId, sets, reps });
+      toast('Staged for routine');
+    });
+    $('#rtSave').addEventListener('click', ()=>{
+      const name = $('#rtName').value.trim();
+      if(!name || tmpItems.length===0){ toast('Name + at least one item'); return; }
+      state.routines.push({ id: uid('rt'), name, items: tmpItems.splice(0) });
+      save(state); $('#rtName').value=''; refreshRoutines(); toast('Routine saved');
+    });
+    $('#rtList').addEventListener('click', (e)=>{
+      const start = e.target.getAttribute('data-start-rt');
+      const del = e.target.getAttribute('data-del-rt');
+      if(start){ startWorkoutFromRoutine(start); }
+      if(del){
+        const snapshot = JSON.stringify(state.routines);
+        state.routines = state.routines.filter(r=>r.id!==del); save(state); refreshRoutines();
+        toast('Routine deleted', ()=>{ state.routines = JSON.parse(snapshot); save(state); refreshRoutines(); });
+      }
+    });
+
+    // History
+    renderSelect($('#histExercise'), state.exercises);
+    $('#histExercise').addEventListener('change', (e)=>showHistoryFor(e.target.value));
+    $('#histPRs').addEventListener('click', ()=>{
+      const exId = $('#histExercise').value;
+      if(exId) showHistoryFor(exId);
+    });
+
+    // Backup
+    $('#exportBtn').addEventListener('click', exportJSON);
+    $('#importFile').addEventListener('change', (e)=> e.target.files[0] && importJSON(e.target.files[0]));
+    $('#resetBtn').addEventListener('click', ()=>{
+      const snapshot = JSON.stringify(state);
+      state = emptyState(); save(state); refreshAll();
+      toast('Reset complete', ()=>{ state = JSON.parse(snapshot); save(state); refreshAll(); });
+    });
+
+    // Initial
+    refreshAll();
+  });
+
+  // --- PWA service worker registration ---
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js?v=3').then(()=>{
+        document.getElementById('status').textContent = 'offline-ready';
+      }).catch(()=>{
+        document.getElementById('status').textContent = 'not installed';
+      });
+    });
+  }
+  </script>
 </body>
 </html>
